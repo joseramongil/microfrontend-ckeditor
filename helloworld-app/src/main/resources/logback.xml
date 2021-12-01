@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration scan="true">
+
+	<property name="HOME_LOG" value="/home/osboxes/vaadin_embedded/logs"/>
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+    	<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+      		<level>DEBUG</level>
+    	</filter>
+        <!-- <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>
+               %d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
+            </Pattern>
+        </layout> -->
+        <encoder>
+            <Pattern>
+                %d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
+            </Pattern>
+        </encoder>        
+    </appender>
+
+    <appender name="FILE-ROLLING" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${HOME_LOG}/helloworld-app.log</file>
+        <encoder>
+            <Pattern>
+                %d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
+            </Pattern>
+        </encoder>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+    		<!-- rollover daily -->
+    		<fileNamePattern>${HOME_LOG}/helloworld-app.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+     		<!-- each file should be at most 100MB, keep 30 days worth of history, but at most 20GB -->
+     		<maxFileSize>100MB</maxFileSize>    
+     		<maxHistory>30</maxHistory>
+     		<totalSizeCap>3GB</totalSizeCap>
+    	</rollingPolicy>
+    </appender>
+
+	<logger name="org.springframework" level="INFO" />
+	<logger name="org.hibernate" level="INFO" />
+	<logger name="com.zaxxer.hikari" level="INFO" />
+	<logger name="ch.qos.logback" level="WARN" />
+	<logger name="org.atmosphere" level="WARN" />
+	
+	
+    <!-- <logger name="org.springframework" level="ERROR" additivity="false">
+        <appender-ref ref="FILE-ROLLING"/>
+    </logger> -->
+    
+    <logger name="es.deloitte.consulting.microfrontend.vaadin.hw" level="DEBUG" />
+
+    <root level="DEBUG">
+    	<appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE-ROLLING"/>
+    </root>
+
+</configuration>
