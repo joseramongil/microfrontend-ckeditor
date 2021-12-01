@@ -6,7 +6,9 @@ The project is a standard Maven project. To run it from the command line,
 type the next comand.
 
 ```shell
-mvn spring-boot:run -Pproduction
+cd helloworld-app
+mvn clean install -Pproduction
+java -jar target/helloworld-app.jar
 ```
 Then open http://localhost:8092/helloworld-app/ in your browser.
 
